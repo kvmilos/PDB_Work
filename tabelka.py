@@ -1,7 +1,27 @@
-import os
+def get_part(sentence, tokens, token1, token2):
+    # Initialize the starting and ending positions of the part of the sentence
+    start_pos = 0
+    end_pos = len(sentence)
+    # Find the starting position of the part of the sentence
+    for i, token in enumerate(tokens):
+        if token == token1:
+            start_pos = sentence.index(token, start_pos)
+            break
+    else:
+        start_pos += len(token) + 1
 
+    # Find the ending position of the part of the sentence
+    for i, token in enumerate(tokens):
+        if token == token2:
+            end_pos = sentence.index(token, start_pos) + len(token)
+            break
+        else:
+            end_pos += len(token) + 1
 
-#def policz_znaki(lista, zdanie):
+    # Get the part of the sentence between the two tokens
+    part_of_sentence = sentence[start_pos:end_pos]
+
+    return part_of_sentence
     
 
 
@@ -158,13 +178,30 @@ def main():
                 tabela[j].append([zlicz(zmien2(zdanie, pod(licznik[i][1], zdanie)))[0]])  # pierwsze - slowa
                 tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][1], zdanie)))[0]])  # pierwsze - tokeny
                 tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][1], zdanie)))[1]])  # pierwsze - znaki
-                tabela[j].append([zlacz(zdanie, pod(licznik[i][1], zdanie))])  # pierwsze - caly czlon
+                new = pod(licznik[i][1], zdanie)
+                for x in range(len(new)):
+                    if new[x - 1] == 0 and new[x] == 1 or x == 0 and new[x] == 1:
+                        a = x
+                        break
+                for x in range(len(new)):
+                    if new[x] == 1 and x == len(new) - 1 or new[x] == 1 and new[x + 1] == 0:
+                        b = x
+                new_list = [zdanie[i][1] for i in range(len(zdanie))]
+                tabela[j].append([get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1])])  # pierwsze - caly czlon
                 tabela[j].append([licznik[i][1][1]])  # glowna pierwszego czlonu
                 tabela[j].append([licznik[i][1][3]])  # tag glowy p. cz.
                 tabela[j].append([zlicz(zmien2(zdanie, pod(licznik[i][2], zdanie)))[0]])  # drugie - slowa
                 tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][2], zdanie)))[0]])  # drugie - tokeny
                 tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][2], zdanie)))[1]])  # drugie - znaki
-                tabela[j].append([zlacz(zdanie, pod(licznik[i][2], zdanie))])  # drugie - caly czlon
+                new2 = pod(licznik[i][2], zdanie)
+                for x in range(len(new2)):
+                    if new2[x - 1] == 0 and new2[x] == 1 or x == 0 and new2[x] == 1:
+                        a = x
+                        break
+                for x in range(len(new2)):
+                    if new2[x] == 1 and x == len(new2) - 1 or new2[x] == 1 and new2[x + 1] == 0:
+                        b = x
+                tabela[j].append([get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1])])  # drugie - caly czlon
                 tabela[j].append([licznik[i][2][1]])  # glowa drugiego czlonu
                 tabela[j].append([licznik[i][2][3]])  # tag glowy d. cz.
                 tabela[j].append([phr[k]])
@@ -172,8 +209,8 @@ def main():
                 j += 1
         k += 1
     ile = 0
-    with open("wyniki_0512.csv", "w") as f:
-        f.write("pozycja nadrzędnika~nadrzędnik~tag nadrzędnika~etykieta koordynacji~spójnik~tag spójnika~słowa pierwszego członu~tokeny pierwszego członu~znaki pierwszego członu~pierwszy człon~głowa pierwszego członu~tag głowy pierwszego członu~słowa drugiego członu~tokeny drugiego członu~znaki drugiego członu~drugi człon~głowa drugiego członu~tag głowy drugiego członu~zdanie~sent_id\n")
+    with open("wyniki_0401.csv", "w") as f:
+        f.write("pozycja nadrzędnika\tnadrzędnik\ttag nadrzędnika\tetykieta koordynacji\tspójnik\ttag spójnika\tsłowa pierwszego członu\ttokeny pierwszego członu\tznaki pierwszego członu\tpierwszy człon\tgłowa pierwszego członu\ttag głowy pierwszego członu\tsłowa drugiego członu\ttokeny drugiego członu\tznaki drugiego członu\tdrugi człon\tgłowa drugiego członu\ttag głowy drugiego członu\tzdanie\tsent_id\n")
         for i in tabela:
             a = 0
             ile += 1
@@ -181,7 +218,7 @@ def main():
                 a += 1
                 f.write(str(j[0]))
                 if a != 20:
-                    f.write("~")
+                    f.write("\t")
             f.write("\n")
 
 
