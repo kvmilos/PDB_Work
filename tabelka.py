@@ -173,11 +173,6 @@ def main():
                     tabela[j].append([zdanie[int(zdanie[i-1][6])-1][1]])  # nadrzednik
                     tabela[j].append([zdanie[int(zdanie[i-1][6])-1][3]])  # kat nadrzednika
                     tabela[j].append([zdanie[i-1][7]])  # etykieta koord
-                tabela[j].append([zdanie[i-1][2]])  # spojnik/interp
-                tabela[j].append([zdanie[i-1][3]])  # kat spojnika/interp
-                tabela[j].append([zlicz(zmien2(zdanie, pod(licznik[i][1], zdanie)))[0]])  # pierwsze - slowa
-                tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][1], zdanie)))[0]])  # pierwsze - tokeny
-                tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][1], zdanie)))[1]])  # pierwsze - znaki
                 new = pod(licznik[i][1], zdanie)
                 for x in range(len(new)):
                     if new[x - 1] == 0 and new[x] == 1 or x == 0 and new[x] == 1:
@@ -187,12 +182,21 @@ def main():
                     if new[x] == 1 and x == len(new) - 1 or new[x] == 1 and new[x + 1] == 0:
                         b = x
                 new_list = [zdanie[i][1] for i in range(len(zdanie))]
-                tabela[j].append([get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1])])  # pierwsze - caly czlon
+                tabela[j].append([zdanie[i-1][2]])  # spojnik/interp
+                tabela[j].append([zdanie[i-1][3]])  # kat spojnika/interp
+                if zdanie[a][1] != zdanie[b][1]:
+                    tabela[j].append([len(get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1]).split(sep = ' ' ))])
+                else:
+                    tabela[j].append([zlicz(zmien2(zdanie, pod(licznik[i][1], zdanie)))[0]]) # pierwsze - slowa
+                tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][1], zdanie)))[0]])  # pierwsze - tokeny
+                if zdanie[a][1] != zdanie[b][1]:
+                    tabela[j].append([len(get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1]))])
+                    tabela[j].append([get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1])])
+                else:
+                    tabela[j].append([len(zlacz(zdanie, pod(licznik[i][1], zdanie)))])
+                    tabela[j].append([zlacz(zdanie, pod(licznik[i][1], zdanie))])
                 tabela[j].append([licznik[i][1][1]])  # glowna pierwszego czlonu
                 tabela[j].append([licznik[i][1][3]])  # tag glowy p. cz.
-                tabela[j].append([zlicz(zmien2(zdanie, pod(licznik[i][2], zdanie)))[0]])  # drugie - slowa
-                tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][2], zdanie)))[0]])  # drugie - tokeny
-                tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][2], zdanie)))[1]])  # drugie - znaki
                 new2 = pod(licznik[i][2], zdanie)
                 for x in range(len(new2)):
                     if new2[x - 1] == 0 and new2[x] == 1 or x == 0 and new2[x] == 1:
@@ -201,7 +205,17 @@ def main():
                 for x in range(len(new2)):
                     if new2[x] == 1 and x == len(new2) - 1 or new2[x] == 1 and new2[x + 1] == 0:
                         b = x
-                tabela[j].append([get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1])])  # drugie - caly czlon
+                if zdanie[a][1] != zdanie[b][1]:
+                    tabela[j].append([len(get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1]).split(sep=' '))])
+                else:
+                    tabela[j].append([zlicz(zmien2(zdanie, pod(licznik[i][2], zdanie)))[0]]) # drugie - slowa
+                tabela[j].append([zlicz(zmien(zdanie, pod(licznik[i][2], zdanie)))[0]])  # drugie - tokeny
+                if zdanie[a][1] != zdanie[b][1]:
+                    tabela[j].append([len(get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1]))])
+                    tabela[j].append([get_part(phr[k], new_list, zdanie[a][1], zdanie[b][1])])  # drugie - caly czlon
+                else:
+                    tabela[j].append([len(zlacz(zdanie, pod(licznik[i][2], zdanie)))]) # drugie - znaki
+                    tabela[j].append([zlacz(zdanie, pod(licznik[i][2], zdanie))])
                 tabela[j].append([licznik[i][2][1]])  # glowa drugiego czlonu
                 tabela[j].append([licznik[i][2][3]])  # tag glowy d. cz.
                 tabela[j].append([phr[k]])
