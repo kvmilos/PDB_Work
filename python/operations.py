@@ -20,8 +20,7 @@ def create_table(lib, phr, meta):
             if conj[j][0] == 2:
                 res.append([])
                 cur = sen[j-1]
-                a = conj[j][1]
-                b = conj[j][2]
+                a, b = conj[j][1], conj[j][2]  # heads
                 if int(cur[6]) == 0:  # no governor
                     res[i].extend([['0'], [''], [''], [''], [cur[7]]])  # adds 0, NA, NA, NA, root
                 else:
@@ -46,7 +45,7 @@ def create_table(lib, phr, meta):
                         tks1.append(sen[c][1])
                 res[i].append([len(getpart(phr[k], tks1).split(sep=' '))])  # a: no of words
                 res[i].append([howmany(new1)])  # a: no of tokens
-                res[i].append([len(getpart(phr[k], tks1))])  # a: no of signs
+                res[i].append([len(getpart(phr[k], tks1))])  # a: no of chars
                 res[i].append([getpart(phr[k], tks1)])  # a: text
                 res[i].append([a[1]])  # a: head
                 res[i].append([a[3]])  # a: tag of head
@@ -58,7 +57,7 @@ def create_table(lib, phr, meta):
                         tks2.append(sen[c][1])
                 res[i].append([len(getpart(phr[k], tks2).split(sep=' '))])  # b: no of words
                 res[i].append([howmany(new2)])  # b: no of tokens
-                res[i].append([len(getpart(phr[k], tks2))])  # b: no of signs
+                res[i].append([len(getpart(phr[k], tks2))])  # b: no of chars
                 res[i].append([getpart(phr[k], tks2)])  # b: text
                 res[i].append([b[1]])  # b: head
                 res[i].append([b[3]])  # b: tag of head

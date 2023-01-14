@@ -1,4 +1,6 @@
 import re
+import pyphen
+import num2words
 
 
 def under(word, sentence):
@@ -39,3 +41,21 @@ def howmany(li):
         if i == 1:
             res += 1
     return res
+
+
+def syllables(text):
+    dic = pyphen.Pyphen(lang='pl_PL')
+    n = 0
+    tildes = dic.inserted(text, "~")
+    for i in tildes:
+        if i == '~':
+            n += 1
+    return n
+
+
+def num_words(tks):
+    tks2 = tks
+    for i in range(len(tks2)):
+        if tks2[i].isnumeric():
+            tks2[i] = num2words.num2words(tks2[i], lang='pl')
+    return tks2
