@@ -61,12 +61,12 @@ def load_json(file1, file2, file3):
 def save(file, tab):
     n = 0
     with open(file, 'w') as f:
-        f.write('pozycja nadrzędnika\tnadrzędnik\ttag nadrzędnika\tpełny tag\tetykieta koordynacji\tspójnik\ttag spójnika\tsłowa pierwszego członu\ttokeny pierwszego członu\tznaki pierwszego członu\tpierwszy człon\tgłowa pierwszego członu\ttag głowy pierwszego członu\tpełny tag głowy\tsłowa drugiego członu\ttokeny drugiego członu\tznaki drugiego członu\tdrugi człon\tgłowa drugiego członu\ttag głowy drugiego członu\tpełny tag głowy\tzdanie\tsent_id\tplik\n')
+        f.write('pozycja nadrzędnika\tnadrzędnik\ttag nadrzędnika\tpełny tag\tetykieta koordynacji\tspójnik\ttag spójnika\tsłowa pierwszego członu\ttokeny pierwszego członu\tsylaby pierwszego członu\tznaki pierwszego członu\tpierwszy człon\tpierwszy człon podzielony na sylaby\tgłowa pierwszego członu\ttag głowy pierwszego członu\tpełny tag głowy\tsłowa drugiego członu\ttokeny drugiego członu\tsylaby drugiego członu\tznaki drugiego członu\tdrugi człon\tdrugi człon podzielony na sylaby\tgłowa drugiego członu\ttag głowy drugiego członu\tpełny tag głowy\tzdanie\tsent_id\tplik\n')
         for i in tab:
             a = 0
             n += 1
             for j in i:
                 f.write(str(j[0]))
-                if a != 24:
+                if a != 28:
                     f.write('\t')
             f.write('\n')

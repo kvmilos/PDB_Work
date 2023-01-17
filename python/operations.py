@@ -1,4 +1,4 @@
-from auxiliary import under, getpart, howmany
+from auxiliary import under, getpart, howmany, num_words, syllables
 
 
 def create_table(lib, phr, meta):
@@ -45,8 +45,10 @@ def create_table(lib, phr, meta):
                         tks1.append(sen[c][1])
                 res[i].append([len(getpart(phr[k], tks1).split(sep=' '))])  # a: no of words
                 res[i].append([howmany(new1)])  # a: no of tokens
+                res[i].append([syllables(''.join(num_words(tks1)))[0]])  # a: no of syllables
                 res[i].append([len(getpart(phr[k], tks1))])  # a: no of chars
                 res[i].append([getpart(phr[k], tks1)])  # a: text
+                res[i].append([syllables(''.join(num_words(tks1)))[1]])  # a: text divided
                 res[i].append([a[1]])  # a: head
                 res[i].append([a[3]])  # a: tag of head
                 res[i].append([a[4]])  # a: full tag of head
@@ -57,8 +59,10 @@ def create_table(lib, phr, meta):
                         tks2.append(sen[c][1])
                 res[i].append([len(getpart(phr[k], tks2).split(sep=' '))])  # b: no of words
                 res[i].append([howmany(new2)])  # b: no of tokens
+                res[i].append([syllables(''.join(num_words(tks2)))[0]])  # b: no of sylables
                 res[i].append([len(getpart(phr[k], tks2))])  # b: no of chars
                 res[i].append([getpart(phr[k], tks2)])  # b: text
+                res[i].append([syllables(''.join(num_words(tks2)))[1]])  # b: text divided
                 res[i].append([b[1]])  # b: head
                 res[i].append([b[3]])  # b: tag of head
                 res[i].append([b[4]])  # b: full tag of head

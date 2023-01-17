@@ -8,7 +8,7 @@ def main():
     meta = data.load_json("/Users/kvmilos/Desktop/PDB/meta/PDB_test.json", "/Users/kvmilos/Desktop/PDB/meta/PDB_dev.json", "/Users/kvmilos/Desktop/PDB/meta/PDB_train.json")
 
     tab = create_table(lib, phr, meta)
-    data.save('../wyniki_13.01.csv', tab)
+    data.save('../wyniki_17.01.csv', tab)
 
 
 main()

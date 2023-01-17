@@ -20,15 +20,15 @@ def under(word, sentence):
 
 
 def getpart(sentence, tokens_list):
-    tokens_list = [re.escape(token) for token in tokens_list]
-    pattern = "(" + " *".join(tokens_list) + ")"
+    tokens_list2= [re.escape(token) for token in tokens_list]
+    pattern = "(" + " *".join(tokens_list2) + ")"
     matches = re.finditer(pattern, sentence)
     match_list = [match.group() for match in matches]
     if len(match_list) > 1:
         match_length = len(match_list[0])
         for match in match_list:
             if len(match) != match_length:
-                print(match, match_list[0])
+                print("ERROR", match, match_list[0])
                 return "Error - length is not the same"
     if len(match_list) == 0:
         return "Error - length is 0"
@@ -50,11 +50,11 @@ def syllables(text):
     for i in tildes:
         if i == '~':
             n += 1
-    return n
+    return n, tildes
 
 
 def num_words(tks):
-    tks2 = tks
+    tks2 = [tokens for tokens in tks]
     for i in range(len(tks2)):
         if tks2[i].isnumeric():
             tks2[i] = num2words.num2words(tks2[i], lang='pl')
