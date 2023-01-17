@@ -28,7 +28,6 @@ def getpart(sentence, tokens_list):
         match_length = len(match_list[0])
         for match in match_list:
             if len(match) != match_length:
-                print("ERROR", match, match_list[0])
                 return "Error - length is not the same"
     if len(match_list) == 0:
         return "Error - length is 0"
