@@ -20,16 +20,16 @@ def under(word, sentence):
 
 
 def getpart(sentence, tokens_list):
-    tokens_list2= [re.escape(token) for token in tokens_list]
+    tokens_list2 = [re.escape(token) for token in tokens_list]
     pattern = "(" + " *".join(tokens_list2) + ")"
     matches = re.finditer(pattern, sentence)
     match_list = [match.group() for match in matches]
     if len(match_list) > 1:
         match_length = len(match_list[0])
         for match in match_list:
-            assert len(match) == match_length, "Error - length is not the same"
+            assert len(match) == match_length, "Error: length is not the same (problem with spaces)"
     if len(match_list) == 0:
-        return "Error - length is 0"
+        return "Error: problem with words in between"
     return match_list[0]
 
 

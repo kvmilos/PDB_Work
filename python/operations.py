@@ -43,12 +43,18 @@ def create_table(lib, phr, meta):
                 for c in range(len(new1)):
                     if new1[c] == 1:
                         tks1.append(sen[c][1])
-                res[i].append([len(getpart(phr[k], tks1).split(sep=' '))])  # a: no of words
+                if getpart(phr[k], tks1) != "Error: problem with words in between":
+                    res[i].append([len(getpart(phr[k], tks1).split(sep=' '))])  # a: no of words
+                else:
+                    res[i].append(["Error: problem with words in between"])
                 res[i].append([howmany(new1)])  # a: no of tokens
-                res[i].append([syllables(''.join(num_words(tks1)))[0]])  # a: no of syllables
-                res[i].append([len(getpart(phr[k], tks1))])  # a: no of chars
+                res[i].append([syllables(' '.join(num_words(tks1)))[0]])  # a: no of syllables
+                if getpart(phr[k], tks1) != "Error: problem with words in between":
+                    res[i].append([len(getpart(phr[k], tks1))])  # a: no of chars
+                else:
+                    res[i].append(["Error: problem with words in between"])
                 res[i].append([getpart(phr[k], tks1)])  # a: text
-                res[i].append([syllables(''.join(num_words(tks1)))[1]])  # a: text divided
+                res[i].append([syllables(' '.join(num_words(tks1)))[1]])  # a: text divided
                 res[i].append([a[1]])  # a: head
                 res[i].append([a[3]])  # a: tag of head
                 res[i].append([a[4]])  # a: full tag of head
@@ -57,12 +63,18 @@ def create_table(lib, phr, meta):
                 for c in range(len(new2)):
                     if new2[c] == 1:
                         tks2.append(sen[c][1])
-                res[i].append([len(getpart(phr[k], tks2).split(sep=' '))])  # b: no of words
+                if getpart(phr[k], tks2) != "Error: problem with words in between":
+                    res[i].append([len(getpart(phr[k], tks2).split(sep=' '))])  # b: no of words
+                else:
+                    res[i].append(["Error: problem with words in between"])
                 res[i].append([howmany(new2)])  # b: no of tokens
-                res[i].append([syllables(''.join(num_words(tks2)))[0]])  # b: no of sylables
-                res[i].append([len(getpart(phr[k], tks2))])  # b: no of chars
+                res[i].append([syllables(' '.join(num_words(tks2)))[0]])  # b: no of sylables
+                if getpart(phr[k], tks2) != "Error: problem with words in between":
+                    res[i].append([len(getpart(phr[k], tks2))])  # b: no of chars
+                else:
+                    res[i].append(["Error: problem with words in between"])
                 res[i].append([getpart(phr[k], tks2)])  # b: text
-                res[i].append([syllables(''.join(num_words(tks2)))[1]])  # b: text divided
+                res[i].append([syllables(' '.join(num_words(tks2)))[1]])  # b: text divided
                 res[i].append([b[1]])  # b: head
                 res[i].append([b[3]])  # b: tag of head
                 res[i].append([b[4]])  # b: full tag of head
